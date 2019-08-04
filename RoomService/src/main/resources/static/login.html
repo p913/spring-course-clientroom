@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в личный кабинет</title>
+    <script src="webjars/vue/2.5.16/vue.js"></script>
+    <script src="webjars/jquery/1.12.0/jquery.min.js"></script>
+    <script src="webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="webjars/jquery-ui-themes/1.12.1/overcast/jquery-ui.css">
+    <link rel="stylesheet" href="clientroom.css"/>
+</head>
+<body>
+<script>
+    $(() => {
+        if (window.location.search.indexOf('error') >= 0)
+          $('.form-login__error').removeClass('form-login__error--hidden')
+    })
+</script>
+<div class="ui-widget ui-corner-all central central--fixed-height">
+    <main id="login">
+        <header class="login__header">Вход в личный кабинет (<a href="/register.html">регистрация</a>)</header>
+        <form class="form-login login__form" method="post" action="/login.html">
+          <input id="form-login__user" class="form-login__user ui-corner-all" type="text" placeholder="e-mail или телефон" name="username" required/>
+          <input id="form-login__psw" class="form-login__psw ui-corner-all" type="password" placeholder="Пароль" name="password" required/>
+          <button class="form-login__button ui-button ui-corner-all">Войти</button>
+          <div class="form-login__remember-me">
+              <input id="form-login__remember-me-checkbox" class="form-login__remember-me-checkbox ui-corner-all" type="checkbox" name="remember-me"/>
+              <label for="form-login__remember-me-checkbox">Запомнить учетные данные</label>
+          </div>
+          <p class="form-login__error form-login__error--hidden">С такими учетными данными вход невозможен</p>
+        </form>
+    </main>
+</div>
+</body>
+</html>

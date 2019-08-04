@@ -1,0 +1,157 @@
+databaseChangeLog:
+- changeSet:
+    id: 0001-people-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/peoples.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: people
+- changeSet:
+    id: 0001-firm-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/firms.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: firm
+- changeSet:
+    id: 0001-contragent-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/contragents.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: contragent
+- changeSet:
+    id: 0001-contract-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/contracts.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: contract
+- changeSet:
+    id: 0001-service-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/services.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: service
+- changeSet:
+    id: 0001-acc_object-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/acc_objects.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: accounting_object
+- changeSet:
+    id: 0001-charge_once-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/charges_once.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: charge_once
+- changeSet:
+    id: 0001-charge_service-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/charges_service.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: charge_service
+- changeSet:
+    id: 0001-pay-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/pays.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: pay
+- changeSet:
+    id: 0001-document-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/documents.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: document
+- changeSet:
+    id: 0001-notification-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/notifications.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: notification
+- changeSet:
+    id: 0001-demand-data
+    author: peter
+    context: test, demo
+    runOnChange: true
+    loadUpdateData:
+      primaryKey: id
+      file: csv/demands.csv
+      relativeToChangelogFile: true
+      quotchar: '"'
+      separator: ';'
+      encoding: UTF-8
+      tableName: demand

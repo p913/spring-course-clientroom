@@ -1,0 +1,12 @@
+server:
+  port: 8000
+
+room:
+  beneficiary: "Сообщите разработчику, если видите эту надпись"
+  contacts: "Сообщите разработчику, если видите эту надпись"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -1,0 +1,37 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0005-table-service
+    author: peter
+    changes:
+    - createTable:
+        tableName: service
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: cost
+            type: money
+            constraints:
+                nullable: false
+- changeSet:
+    id: 2019-07-20-0005-indexes-service
+    author: peter
+    changes:
+    - createIndex:
+          indexName: idx_service_name
+          tableName: service
+          schemaName: public
+          unique: true
+          columns:
+              - column:
+                    name: name

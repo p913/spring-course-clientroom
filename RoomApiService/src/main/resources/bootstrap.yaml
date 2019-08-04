@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: room-api-microservice
+  cloud:
+    config:
+      fail-fast: true

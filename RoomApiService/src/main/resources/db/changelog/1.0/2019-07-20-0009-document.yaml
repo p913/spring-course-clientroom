@@ -1,0 +1,48 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0009-table-document
+    author: peter
+    changes:
+    - createTable:
+        tableName: document
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: contract_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_document_contract_id
+                references: contract(id)
+        - column:
+            name: document_date
+            type: date
+            constraints:
+                nullable: false
+        - column:
+              name: document_title
+              type: varchar(255)
+              constraints:
+                  nullable: false
+        - column:
+            name: url
+            type: text
+            constraints:
+                nullable: false
+- changeSet:
+    id: 2019-07-20-0009-indexes-document
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_document_contract_id
+        tableName: document
+        schemaName: public
+        columns:
+        - column:
+            name: contract_id

@@ -1,0 +1,3 @@
+id;contragent_id;contract_id;acc_object_id;demand_subject;demand_note;demand_date_time;decision_date_time;decision_success;decision_note
+e9c40db5-9ae4-46a7-a869-e2d62aed3a8e;026bb306-139b-4b9c-b54a-65ec3def7e88;5a9836ff-ebae-454e-ad95-5fa2def408de;da2ea746-a274-441e-978a-ee661d9b77fd;PAUSE;Просьба приостановить кабельное на месяц;now();now();true;Выполнено
+623a8d47-487a-43be-8df8-d96966f6969c;026bb306-139b-4b9c-b54a-65ec3def7e88;null;null;OTHER;Перепрошить ТВ приставку;now();null;false;null

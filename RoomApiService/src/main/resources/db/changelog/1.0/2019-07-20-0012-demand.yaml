@@ -1,0 +1,98 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0012-table-demand
+    author: peter
+    changes:
+    - createTable:
+        tableName: demand
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: contragent_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_demand_contragent_id
+                references: contragent(id)
+        - column:
+            name: contract_id
+            type: uuid
+            constraints:
+                nullable: true
+                foreignKeyName: fk_demand_contract_id
+                references: contract(id)
+        - column:
+            name: acc_object_id
+            type: uuid
+            constraints:
+                nullable: true
+                foreignKeyName: fk_demand_acc_object_id
+                references: accounting_object(id)
+        - column:
+            name: demand_subject
+            type: varchar(25)
+            constraints:
+                nullable: false
+        - column:
+            name: demand_note
+            type: text
+            constraints:
+                nullable: false
+        - column:
+            name: demand_date_time
+            type: timestamptz
+            constraints:
+                nullable: false
+        - column:
+            name: decision_date_time
+            type: timestamptz
+            constraints:
+                nullable: true
+        - column:
+            name: decision_success
+            type: boolean
+            constraints:
+                nullable: false
+        - column:
+            name: decision_note
+            type: text
+            constraints:
+                nullable: true
+- changeSet:
+    id: 2019-07-20-0012-indexes-demand
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_demand_contragent_id
+        tableName: demand
+        schemaName: public
+        columns:
+        - column:
+            name: contragent_id
+    - createIndex:
+        indexName: idx_demand_contract_id
+        tableName: demand
+        schemaName: public
+        columns:
+        - column:
+            name: contract_id
+    - createIndex:
+        indexName: idx_demand_acc_object_id
+        tableName: demand
+        schemaName: public
+        columns:
+        - column:
+            name: acc_object_id
+    - createIndex:
+        indexName: idx_demand_date_time
+        tableName: demand
+        schemaName: public
+        columns:
+        - column:
+            name: demand_date_time

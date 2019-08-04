@@ -1,0 +1,8 @@
+security:
+  username: api
+  password: AP19rs#$
+
+
+eureka:
+  client:
+    fetch-registry: true

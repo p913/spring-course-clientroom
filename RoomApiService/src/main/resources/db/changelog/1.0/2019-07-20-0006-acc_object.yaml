@@ -1,0 +1,80 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0006-table-accounting_object
+    author: peter
+    changes:
+    - createTable:
+        tableName: accounting_object
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: contract_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_acc_object_contract_id
+                references: contract(id)
+        - column:
+            name: service_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_acc_object_service_id
+                references: service(id)
+        - column:
+            name: description
+            type: text
+            constraints:
+                nullable: true
+        - column:
+            name: date_from
+            type: date
+            constraints:
+                nullable: false
+        - column:
+            name: date_to
+            type: date
+            constraints:
+                nullable: true
+        - column:
+              name: quantity
+              type: numeric
+              constraints:
+                  nullable: false
+- changeSet:
+    id: 2019-07-20-0006-indexes-accounting_object
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_acc_object_name
+        tableName: accounting_object
+        schemaName: public
+        unique: true
+        columns:
+        - column:
+            name: name
+    - createIndex:
+        indexName: idx_acc_object_contract_id
+        tableName: accounting_object
+        schemaName: public
+        columns:
+        - column:
+            name: contract_id
+    - createIndex:
+        indexName: idx_acc_object_service_id
+        tableName: accounting_object
+        schemaName: public
+        columns:
+        - column:
+            name: service_id

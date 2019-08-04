@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в личный кабинет</title>
+    <script src="webjars/vue/2.5.16/vue.js"></script>
+    <script src="webjars/jquery/1.12.0/jquery.min.js"></script>
+    <script src="webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="register.js"></script>
+    <link rel="stylesheet" href="webjars/jquery-ui-themes/1.12.1/overcast/jquery-ui.css">
+    <link rel="stylesheet" href="clientroom.css"/>
+</head>
+<body>
+<div class="ui-widget ui-corner-all central central--fixed-height">
+    <main id="register">
+        <header class="register__header">Регистрация в личном кабинете</header>
+        <article class="register__greeting">Для регистрации необходимо иметь заключенный абонентский договор,
+            знать его номер и дату заключения. Если вы уже регистрировались ранее - <a href="\">войдите.</a></article>
+        <form class="form-register register__form" v-on:submit.prevent="register">
+          <input id="form-register__user" class="form-register__user ui-corner-all" type="text" placeholder="e-mail или телефон" v-model="reg.username" required/>
+          <input id="form-register__contract-number" class="form-register__contract-number ui-corner-all" type="text" placeholder="№ договора" v-model="reg.contract" required/>
+          <input id="form-register__contract-date" class="form-register__contract-date ui-corner-all" type="text" placeholder="ГГГГ-ММ-ДД дата договора" v-model="reg.date" required/>
+          <input id="form-register__psw" class="form-register__psw ui-corner-all" type="password" placeholder="Пароль" v-model="reg.password" minlength="6" required/>
+          <button class="form-register__button ui-button ui-corner-all">Зарегистрироваться</button>
+          <p v-if="error" class="form-register__error">{{ error }}</p>
+        </form>
+    </main>
+</div>
+</body>
+</html>

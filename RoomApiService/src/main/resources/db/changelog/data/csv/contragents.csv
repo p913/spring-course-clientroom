@@ -1,0 +1,8 @@
+id;people_id;firm_id;email;phone;address;password
+026bb306-139b-4b9c-b54a-65ec3def7e88;bb205b5b-77a2-4e2c-8626-c2eddc007fa0;null;petrov@mail.ru;+79001234567;Московская 1 кв 2;12345678
+89acc614-44bf-4df3-aeb1-56609640beac;d69f4cf4-ee7d-4cb4-b9e9-fd3ad8c39304;null;ivanov@mail.ru;null;null;12345677
+f7145405-f820-48c4-941a-185d09048800;2f8bdc67-142c-4a6c-a9aa-75aa0d064e1f;null;sidorov@mail.ru;null;null;12345676
+473107ed-cabd-41b2-858a-3d3fe4f17e74;null;b996951d-5b97-4197-b319-fcf27d6db52b;roga@yandex.ru;null;null;98765432
+0a786b78-0461-4532-86a9-5c04186c0055;null;623a8d47-487a-43be-8df8-d96966f6969c;rielty@yandex.ru;null;null;98765433
+f6281e7f-c6ca-4f9c-9772-6effb020b408;null;c5c40db5-9ae4-46a7-a869-e2d62aed3a7d;ms@yandex.ru;null;null;98765434
+
