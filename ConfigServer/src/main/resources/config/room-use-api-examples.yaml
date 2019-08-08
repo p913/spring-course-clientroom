@@ -1,0 +1,10 @@
+examples:
+  security:
+    api:
+      username: api
+      password: AP19rs#$
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: true

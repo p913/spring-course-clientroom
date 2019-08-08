@@ -19,10 +19,10 @@ import java.util.Collections;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Value("${security.username}")
+    @Value("${room-api.security.api.username}")
     private String username;
 
-    @Value("${security.password}")
+    @Value("${room-api.security.api.password}")
     private String password;
 
     @Override

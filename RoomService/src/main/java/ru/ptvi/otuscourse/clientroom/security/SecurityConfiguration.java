@@ -16,15 +16,13 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
 public class SecurityConfiguration {
-    @Bean
-    public UserDetailsService userDetailsService() throws Exception {
-        // ensure the passwords are encoded properly
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(users.username("master").password("password").roles("MASTER").build());
-        return manager;
-    }
 
+    /**
+     * HttpBasic для актуатора и прочих системных вещей
+     * Требуется роль MASTER, логин и пароль для нее берется с конфиг-сервера.
+     * Рефрешить эти логин и пароль без перезапуска приложения не получилось пока -
+     * добавление @RefreshScope на UserDetailsServiceImpl ломает всю авторизацию...
+     */
     @Configuration
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public static class MasterWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
@@ -39,7 +37,10 @@ public class SecurityConfiguration {
 
     }
 
-    @Configuration
+    /**
+     * Form-based для сайта личного кабинета, пользователи - это контрагенты
+     */
+     @Configuration
     public static class ClientRoomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
         private final UserDetailsService userDetailsService;
@@ -75,10 +76,10 @@ public class SecurityConfiguration {
                         .key("d335e240-8896-44e9-9a4e-c6f0223c8838");
         }
 
-        /*@Bean
+        @Bean
         public PasswordEncoder passwordEncoder() {
             return new BCryptPasswordEncoder(10);
-        }*/
+        }
 
 
         @Override

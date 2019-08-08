@@ -1,8 +1,10 @@
 package ru.ptvi.otuscourse.clientroom.webcontroller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
+import ru.ptvi.otuscourse.clientroom.config.RoomConfigProps;
 import ru.ptvi.otuscourse.clientroom.service.RegisterServiceImpl;
 import ru.ptvi.otuscourse.clientroom.domain.CompanyDto;
 import ru.ptvi.otuscourse.clientroom.domain.RegDataDto;
@@ -16,8 +18,14 @@ import javax.validation.Valid;
 public class RegisterController {
     private final RegisterServiceImpl registerService;
 
-    public RegisterController(RegisterServiceImpl registerService) {
+    private final String company;
+
+    private final String contacts;
+
+    public RegisterController(RegisterServiceImpl registerService, RoomConfigProps props) {
         this.registerService = registerService;
+        this.company = props.getCompany();
+        this.contacts = props.getContacts();
     }
 
     @PostMapping("/register")
@@ -26,9 +34,7 @@ public class RegisterController {
     }
 
     @GetMapping("/company")
-    public CompanyDto getContragentWithContractsWithAccObjects(
-            @Value("${room.company}") String company,
-            @Value("${room.contacts}") String contacts) {
+    public CompanyDto getContragentWithContractsWithAccObjects() {
         return new CompanyDto()
                 .name(company)
                 .contacts(contacts);

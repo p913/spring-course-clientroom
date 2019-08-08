@@ -170,7 +170,7 @@ function PageNotifications() {
                             return response.json()
                           })
               .then(data => { model.newNotificationCount = data.length; model.notifications = data; });
-        setTimeout(this.update, 60000, this);
+        setTimeout(this.update, 30000, this);
     };
     this.update = function(that) {
         fetch('/room/notifications')
@@ -179,7 +179,7 @@ function PageNotifications() {
                             return response.json()
                           })
           .then(data => model.newNotificationCount += addWithUniqueId(model.notifications, data));
-        setTimeout(that.update, 60000, that)
+        setTimeout(that.update, 30000, that)
     };
     this.viewed = function() {
         var notifications = [];

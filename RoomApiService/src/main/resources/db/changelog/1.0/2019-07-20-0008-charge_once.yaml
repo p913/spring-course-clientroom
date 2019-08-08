@@ -42,17 +42,17 @@ databaseChangeLog:
                 nullable: true
         - column:
             name: cost
-            type: money
+            type: numeric(12,2)
             constraints:
                 nullable: false
         - column:
             name: quantity
-            type: numeric
+            type: numeric(12,3)
             constraints:
                 nullable: false
         - column:
             name: summ
-            type: money
+            type: numeric(12,2)
             constraints:
                 nullable: false
 - changeSet:

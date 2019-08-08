@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.ptvi.otuscourse.clientroom.config.RoomConfigProps;
 import ru.ptvi.otuscourse.clientroom.security.ClientRoomUserDetails;
 import ru.ptvi.otuscourse.clientroom.service.RoomService;
 import ru.ptvi.otuscourse.clientroomdto.ContragentDto;
@@ -15,7 +16,6 @@ import ru.ptvi.otuscourse.clientroomdto.ContragentWithDetailsDto;
 
 import java.util.Optional;
 
-@RefreshScope
 @Service
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -26,13 +26,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final String masterPassword;
 
-    public UserDetailsServiceImpl(@Value("${room.security.master.username}") String masterUserName,
-                                  @Value("${room.security.master.password}") String masterPassword,
-                                    RoomService roomService) {
-        log.info("Credetials for master: " + masterUserName + ", " + masterPassword);
+    public UserDetailsServiceImpl(RoomConfigProps props,
+                                  RoomService roomService) {
+        //log.info("Credentials for master: " + masterUserName + ", " + masterPassword);
         this.roomService = roomService;
-        this.masterUserName = masterUserName;
-        this.masterPassword = new BCryptPasswordEncoder(10).encode(masterPassword);
+        this.masterUserName = props.getSecurity().getMaster().getUsername();
+        this.masterPassword = new BCryptPasswordEncoder(10).encode(props.getSecurity().getMaster().getPassword());
     }
 
     @Override

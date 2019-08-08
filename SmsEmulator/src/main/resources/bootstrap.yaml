@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sms-microservice
+  cloud:
+    config:
+      fail-fast: true

@@ -110,11 +110,14 @@ body {
 .table-simple-data th {
   padding: 10px 1px;
   background: #f9f9f9;
+  padding: 0px 5px;
+  font-weight: normal;
 }
 
 .table-simple-data td {
   background: #f9f9f9;
   color: #666666;
+  padding: 0px 5px;
 }
 
 .table-simple-data>tr:hover td {

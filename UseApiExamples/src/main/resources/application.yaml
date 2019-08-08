@@ -1,0 +1,5 @@
+spring:
+  main:
+    #не запускать томкат, зато зависимость starter-web настраивает как надо jackson
+    #(т.е. аналогично api) для (де)сериализации LocalDateTime и подобных
+    web-application-type: NONE

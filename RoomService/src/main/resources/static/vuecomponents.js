@@ -8,7 +8,17 @@ Vue.filter('formatLocalDateTime', function(value) {
       return '';
     var dt = new Date(value);
     var fmt2 = (n) => { return ("" + (100 + n)).substring(1)};
-    return `${dt.getFullYear()}-${fmt2(dt.getMonth()+ 1)}-${fmt2(dt.getDate())} ${dt.getHours()}:${fmt2(dt.getMinutes())}`;
+    return `${fmt2(dt.getDate())}.${fmt2(dt.getMonth()+ 1)}.${fmt2(dt.getYear()-100)} ${dt.getHours()}:${fmt2(dt.getMinutes())}`;
+  }
+});
+
+Vue.filter('formatLocalDate', function(value) {
+  if (value) {
+    if (!value)
+      return '';
+    var dt = new Date(value);
+    var fmt2 = (n) => { return ("" + (100 + n)).substring(1)};
+    return `${fmt2(dt.getDate())}.${fmt2(dt.getMonth()+ 1)}.${fmt2(dt.getYear()-100)}`;
   }
 });
 
@@ -20,7 +30,7 @@ Vue.component('contragent-info', {
         <section v-if="contragent.peopleId">
           <p>ФИО: <span class="c-contragent-info__accent">{{ contragent.peopleFirstName }} {{ contragent.peopleMiddleName }} {{ contragent.peopleLastName }}</span></p>
           <p>Паспорт: <span class="c-contragent-info__accent">{{ contragent.peoplePassport }}</span></p>
-          <p>Дата рождения: <span class="c-contragent-info__accent">{{ contragent.peopleBirthday }}</span></p>
+          <p>Дата рождения: <span class="c-contragent-info__accent">{{ contragent.peopleBirthday | formatLocalDate }}</span></p>
         </section>
         <section v-if="contragent.firmId">
           <p>Наименование: <span class="c-contragent-info__accent">{{ contragent.firmName }}</span></p>
@@ -39,8 +49,8 @@ Vue.component('contragent-contract', {
     <section class="c-contragent-contract">
       <header>
         Договор: <span class="c-contragent-contract__accent">{{ contract.number }}</span>
-        от <span class="c-contragent-contract__accent">{{ contract.dateFrom }}</span>
-        <span v-if="contract.dateTo"> до <span class="c-contragent-contract__accent">{{ contract.dateTo }}</span></span>
+        от <span class="c-contragent-contract__accent">{{ contract.dateFrom | formatLocalDate }}</span>
+        <span v-if="contract.dateTo"> до <span class="c-contragent-contract__accent">{{ contract.dateTo | formatLocalDate }}</span></span>
         Баланс: <span class="c-contragent-contract__balance" v-bind:class="{ 'c-contragent-contract__balance--negative': contract.balance < 0 }">{{ contract.balance }}</span>
       </header>
       <contragent-contract-acc-object v-for="obj in contract.accObjects" v-bind:key="obj.name" v-bind:accObject="obj">
@@ -54,8 +64,8 @@ Vue.component('contragent-contract-acc-object', {
   <section class="c-contragent-contract-acc-object">
     <p class="c-contragent-contract-acc-object__name">Объект учета: <span class="c-contragent-contract-acc-object__accent">{{ accObject.name }}</span></p>
     <p class="c-contragent-contract-acc-object__description" v-if="accObject.description"><span class="c-contragent-contract-acc-object__accent">{{ accObject.description }}</span><p>
-    <p class="c-contragent-contract-acc-object__dates">Дата начала использования: <span class="c-contragent-contract-acc-object__accent">{{ accObject.dateFrom }}</span>
-       <span v-if="accObject.dateTo">, дата окончания <span class="c-contragent-contract-acc-object__accent">{{ contract.dateTo }}</span></span></p>
+    <p class="c-contragent-contract-acc-object__dates">Дата начала использования: <span class="c-contragent-contract-acc-object__accent">{{ accObject.dateFrom | formatLocalDate }}</span>
+       <span v-if="accObject.dateTo">, дата окончания <span class="c-contragent-contract-acc-object__accent">{{ contract.dateTo | formatLocalDate }}</span></span></p>
     <p class="c-contragent-contract-acc-object__service">Услуга: <span class="c-contragent-contract-acc-object__accent">{{ accObject.service.name }}</span>,
         абонплата: <span class="c-contragent-contract-acc-object__accent"> {{ accObject.service.cost }}</span> </p>
     </section>
@@ -77,13 +87,13 @@ Vue.component('date-diap-selector', {
   },
   methods: {
      emitDatesEvent: function() {
-       this.$emit('selected', this.dateFrom, this.dateTo)
+       this.$emit('selected', $('#'+this.idFrom).val(), $('#'+this.idTo).val())
      }
   },
   template: `
     <form class="c-date-diap-selector" v-on:submit.prevent="emitDatesEvent">
-      С <input class="c-date-diap-selector__input-date-from ui-corner-all" type="text" v-model="dateFrom"  v-bind:id="idFrom" required="true">
-      По <input class="c-date-diap-selector__input-date-to ui-corner-all" type="text" v-model="dateTo"v-bind:id="idTo" required="true">
+      С <input class="c-date-diap-selector__input-date-from ui-corner-all" type="text" v-model="dateFrom" v-bind:id="idFrom" required="true" value="dd.mm.yyyy">
+      По <input class="c-date-diap-selector__input-date-to ui-corner-all" type="text" v-model="dateTo" v-bind:id="idTo" required="true">
       <button class="c-date-diap-selector__button-apply ui-button ui-corner-all">Показать</button>
     </form>`
 });
@@ -96,12 +106,12 @@ Vue.component('charge-once-list', {
     <tr> <th>Договор</th> <th>С</th> <th>По</th> <th>Работы, услуги</th> <th>Ед.изм</th> <th>Тариф</th> <th>Кол-во</th> <th>Стоимость</th> </tr>
     <tr v-for="c in charges" v-bind:key="c.id">
        <td>{{ c.contract.number }}</td>
-       <td>{{ c.dateFrom }}</td>
-       <td>{{ c.dateTo }}</td>
+       <td>{{ c.dateFrom | formatLocalDate }}</td>
+       <td>{{ c.dateTo | formatLocalDate }}</td>
        <td>{{ c.description }}</td>
        <td>{{ c.metric }}</td>
-       <td>{{ c.quantity }}</td>
        <td>{{ c.cost }}</td>
+       <td>{{ c.quantity }}</td>
        <td>{{ c.summ }}</td>
     </tr>
   </table>
@@ -115,12 +125,12 @@ Vue.component('charge-service-list', {
     <tr> <th>Объект учета</th> <th>С</th> <th>По</th> <th>Услуга</th> <th>Ед.изм</th> <th>Тариф</th> <th>Кол-во</th> <th>Стоимость</th> </tr>
     <tr v-for="c in charges" v-bind:key="c.id">
        <td>{{ c.accObject.name }}</td>
-       <td>{{ c.dateFrom }}</td>
-       <td>{{ c.dateTo }}</td>
+       <td>{{ c.dateFrom | formatLocalDate }}</td>
+       <td>{{ c.dateTo | formatLocalDate }}</td>
        <td>{{ c.service.name }}</td>
        <td>{{ c.metric }}</td>
-       <td>{{ c.quantity }}</td>
        <td>{{ c.cost }}</td>
+       <td>{{ c.quantity }}</td>
        <td>{{ c.summ }}</td>
     </tr>
   </table>
@@ -152,7 +162,7 @@ Vue.component('document-list', {
     <tr> <th>Договор</th> <th>Дата/время</th> <th>Название</th> <th> </th> </tr>
     <tr v-for="d in docs" v-bind:key="d.id">
        <td>{{ d.contract.number }}</td>
-       <td>{{ d.date }}</td>
+       <td>{{ d.date | formatLocalDate }}</td>
        <td>{{ d.title }}</td>
        <td><a target="_blank" v-bind:href="d.url">Скачать</a></td>
     </tr>
@@ -187,12 +197,11 @@ Vue.component('demand-list', {
   },
   template: `
   <table class="c-demand-list table-simple-data">
-    <tr> <th>Заявка выполнена</th> <th>Тип заявки</th> <th>Содержание заявки</th> <th>Дата/время заявки</th>
+    <tr> <th>Заявка выпол-нена</th> <th>Тип / содержание заявки</th> <th>Дата/время заявки</th>
          <th>Договор</th> <th>Объект учета</th> <th>Дата/время решения</th> <th>Пояснение к решению</th> </tr>
     <tr v-for="d in demands" v-bind:key="d.id">
        <td>{{ d.decisionSuccess ? 'Да' : 'Нет'}}</td>
-       <td>{{ subjects[d.demandSubject] }}</td>
-       <td>{{ d.demandNote }}</td>
+       <td>{{ subjects[d.demandSubject] }}: {{ d.demandNote }}</td>
        <td>{{ d.demandDateTime | formatLocalDateTime }}</td>
        <td>{{ d.contract ? d.contract.number : '' }}</td>
        <td>{{ d.accObject ? d.accObject.name : '' }}</td>

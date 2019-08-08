@@ -62,7 +62,10 @@ public class ContragentDto {
     @ApiModelProperty(position = 14, notes = "Post address with ZIP, city, street, flat/office, etc...")
     private String address;
 
-    @ApiModelProperty(position = 15, notes = "Encoded password")
+    @ApiModelProperty(position = 15, notes = "Phone number")
+    private String phone;
+
+    @ApiModelProperty(position = 16, notes = "Encoded password")
     private String password;
 
 }

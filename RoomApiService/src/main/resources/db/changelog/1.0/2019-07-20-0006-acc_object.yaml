@@ -64,6 +64,8 @@ databaseChangeLog:
         columns:
         - column:
             name: name
+        - column:
+            name: contract_id
     - createIndex:
         indexName: idx_acc_object_contract_id
         tableName: accounting_object

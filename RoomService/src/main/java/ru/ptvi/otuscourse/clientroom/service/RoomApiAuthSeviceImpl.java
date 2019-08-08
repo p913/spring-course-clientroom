@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
+import ru.ptvi.otuscourse.clientroom.config.RoomConfigProps;
 
 @RefreshScope
 @Service
@@ -12,10 +13,10 @@ import org.springframework.util.Base64Utils;
 public class RoomApiAuthSeviceImpl implements RoomApiAuthSevice {
     private String header;
 
-    public RoomApiAuthSeviceImpl(@Value("${room.security.api.username}") String apiUserName,
-                                 @Value("${room.security.api.password}") String apiPassword) {
-        this.header = "Basic " + Base64Utils.encodeToString((apiUserName + ":" + apiPassword).getBytes());
-        log.info("Credentials for API: " + apiUserName + ", " + apiPassword);
+    public RoomApiAuthSeviceImpl(RoomConfigProps props) {
+        this.header = "Basic " + Base64Utils.encodeToString((props.getSecurity().getApi().getUsername() + ":"
+                + props.getSecurity().getApi().getPassword()).getBytes());
+        //log.info("Credentials for API: " + apiUserName + ", " + apiPassword);
     }
 
     @Override
