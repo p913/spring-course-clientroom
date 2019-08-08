@@ -17,7 +17,6 @@ import java.util.UUID;
 @Setter
 @ToString
 @EqualsAndHashCode
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Contragent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,7 +37,6 @@ public class Contragent {
 
     private String phone;
 
-    @JsonIgnore
     private String password;
 
     @EqualsAndHashCode.Exclude

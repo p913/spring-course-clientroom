@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ptvi.otuscourse.clientroomapi.domain.AccountingObject;
 import ru.ptvi.otuscourse.clientroomapi.domain.Contract;
 import ru.ptvi.otuscourse.clientroomapi.domain.Contragent;
+import ru.ptvi.otuscourse.clientroomapi.domain.Firm;
 import ru.ptvi.otuscourse.clientroomapi.repository.AccountingObjectRepository;
 import ru.ptvi.otuscourse.clientroomapi.repository.ContractRepository;
 import ru.ptvi.otuscourse.clientroomapi.repository.ContragentRepository;
@@ -14,6 +15,7 @@ import ru.ptvi.otuscourse.clientroomdto.ContractDto;
 import ru.ptvi.otuscourse.clientroomdto.ContragentDto;
 import ru.ptvi.otuscourse.clientroomdto.ContragentWithDetailsDto;
 
+import javax.naming.OperationNotSupportedException;
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -85,6 +87,53 @@ public class ContragentApiServiceImpl implements ContragentApiService {
         contragentRepository.save(modelMapper.map(contragentDto, Contragent.class));
     }
 
+    private void patchFirm(Contragent contragent, ContragentDto contragentDto) {
+        if (contragent.getFirm() != null) {
+
+            if (contragentDto.firmName() != null)
+                contragent.getFirm().setName(contragentDto.firmName());
+
+            if (contragentDto.firmInn() != null)
+                contragent.getFirm().setInn(contragentDto.firmInn());
+
+            if (contragentDto.firmKpp() != null)
+                contragent.getFirm().setKpp(contragentDto.firmKpp());
+
+            if (contragentDto.firmAccount() != null)
+                contragent.getFirm().setAccount(contragentDto.firmAccount());
+
+            if (contragentDto.firmBank() != null)
+                contragent.getFirm().setBank(contragentDto.firmBank());
+        } else if (contragentDto.firmName() != null || contragentDto.firmInn() != null
+                || contragentDto.firmKpp() != null || contragentDto.firmAccount() != null
+                || contragentDto.firmBank() != null)
+            throw new UnsupportedOperationException("Can't patch from people to firm");
+    }
+
+    private void patchPeople(Contragent contragent, ContragentDto contragentDto) {
+        if (contragent.getPeople() != null) {
+
+            if (contragentDto.peopleFirstName() != null)
+                contragent.getPeople().setFirstName(contragentDto.peopleFirstName());
+
+            if (contragentDto.peopleMiddleName() != null)
+                contragent.getPeople().setMiddleName(contragentDto.peopleMiddleName());
+
+            if (contragentDto.peopleLastName() != null)
+                contragent.getPeople().setLastName(contragentDto.peopleLastName());
+
+            if (contragentDto.peoplePassport() != null)
+                contragent.getPeople().setPassport(contragentDto.peoplePassport());
+
+            if (contragentDto.peopleBirthday() != null)
+                contragent.getPeople().setBirthday(contragentDto.peopleBirthday());
+
+        } else if (contragentDto.peopleFirstName() != null || contragentDto.peopleMiddleName() != null
+                || contragentDto.peopleLastName() != null || contragentDto.peoplePassport() != null
+                || contragentDto.peopleBirthday() != null)
+            throw new UnsupportedOperationException("Can't patch from firm to people");
+    }
+
     @Override
     public void patchContagent(ContragentDto contragentDto) {
         var contragent = contragentRepository.findById(UUID.fromString(contragentDto.id()));
@@ -92,7 +141,17 @@ public class ContragentApiServiceImpl implements ContragentApiService {
         if (contragent.isEmpty())
             throw new EntityNotFoundException("Contragent not found: " + contragentDto.id());
 
-        //TODO все поля патчить и написать тест
+        if (contragentDto.address() != null)
+            contragent.get().setAddress(contragentDto.address());
+
+        if (contragentDto.email() != null)
+            contragent.get().setEmail(contragentDto.email());
+
+        if (contragentDto.phone() != null)
+            contragent.get().setPhone(contragentDto.phone());
+
+        patchFirm(contragent.get(), contragentDto);
+        patchPeople(contragent.get(), contragentDto);
 
         if (contragentDto.password() != null)
             contragent.get().setPassword(contragentDto.password());

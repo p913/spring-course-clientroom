@@ -49,7 +49,7 @@ public class ApiController {
     public List<ContragentWithDetailsDto> getContragents(@RequestParam(value = "account", required = false) @ApiParam("Email or phone") String account,
                                               @RequestParam(value = "details", required = false) @ApiParam("Include in response contracts and accounting objects") boolean details) {
         if (StringUtils.isEmpty(account))
-            return contragentApiService.getContragents(details); // TODO details в тесты
+            return contragentApiService.getContragents(details);
         else
             return contragentApiService.getContragentByEmailOrPhone(account, details).stream().collect(Collectors.toList());
     }
@@ -60,7 +60,7 @@ public class ApiController {
             @ApiResponse(code = 200, message = "Founded contragent with contracts and accounting objects"),
             @ApiResponse(code = 404, message = "Contragent not found")
     })
-    public ResponseEntity<ContragentDto> getContragent(@PathVariable("cgid") @ApiParam("Contragent id") String contragentId) {
+    public ResponseEntity<ContragentWithDetailsDto> getContragent(@PathVariable("cgid") @ApiParam("Contragent id") String contragentId) {
         var res = contragentApiService.getContragentById(contragentId);
         return res.isPresent()
                 ? ResponseEntity.ok(res.get())

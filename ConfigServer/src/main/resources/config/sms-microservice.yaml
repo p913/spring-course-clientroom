@@ -1,9 +1,0 @@
-sms-emulator:
-  telegram:
-    token: "582044049:AAEb8tI0VYXD-k6r4NYDFVZJXIoY3kv2H9g"
-    chat-id: "217323896"
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: false

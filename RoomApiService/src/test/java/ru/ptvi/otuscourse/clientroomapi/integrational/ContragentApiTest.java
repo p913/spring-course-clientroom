@@ -25,7 +25,7 @@ class ContragentApiTest extends BaseApiTest {
 
     @Test
     @DisplayName("GET /api/contragents должtн возвращать массив объектов, содержащих основные атрибуты контрагента")
-    void shouldBeOkAndReturnArrayOfPredefined() throws Exception {
+    void shouldBeOkAndReturnArrayOfPredefinedAllNoDetails() throws Exception {
         mvc.perform(get("/api/contragents")
                     .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
@@ -34,7 +34,31 @@ class ContragentApiTest extends BaseApiTest {
                 .andExpect(jsonPath("$[0].id").isNotEmpty())
                 .andExpect(jsonPath("$[0].firmId").hasJsonPath())
                 .andExpect(jsonPath("$[0].peopleId").hasJsonPath())
-                .andExpect(jsonPath("$[0].email").isNotEmpty());
+                .andExpect(jsonPath("$[0].email").isNotEmpty())
+                .andExpect(jsonPath("$[0].contracts").isArray())
+                .andExpect(jsonPath("$[0].contracts").isEmpty());
+    }
+
+    @Test
+    @DisplayName("GET /api/contragents?account=email&details=true должен возвращать контрагента с договорами и объектами учета")
+    void shouldBeOkAndReturnArrayOfPredefinedByEMailWithDtails() throws Exception {
+        mvc.perform(get("/api/contragents")
+                    .param("account", CONTRAGENT_ID_EXISTS_EMAIL)
+                    .param("details", Boolean.TRUE.toString())
+                    .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isNotEmpty())
+                .andExpect(jsonPath("$[0].id").isNotEmpty())
+                .andExpect(jsonPath("$[0].firmId").hasJsonPath())
+                .andExpect(jsonPath("$[0].peopleId").hasJsonPath())
+                .andExpect(jsonPath("$[0].email").isNotEmpty())
+                .andExpect(jsonPath("$[0].contracts").isArray())
+                .andExpect(jsonPath("$[0].contracts").isNotEmpty())
+                .andExpect(jsonPath("$[0].contracts[0].id").isNotEmpty())
+                .andExpect(jsonPath("$[0].contracts[0].accObjects").isArray())
+                .andExpect(jsonPath("$[0].contracts[0].accObjects").isNotEmpty())
+                .andExpect(jsonPath("$[0].contracts[0].accObjects[0].id").isNotEmpty());
     }
 
     @Test
@@ -46,7 +70,9 @@ class ContragentApiTest extends BaseApiTest {
                 .andExpect(jsonPath("$.id").value(CONTRAGENT_ID_EXISTS))
                 .andExpect(jsonPath("$.firmId").hasJsonPath())
                 .andExpect(jsonPath("$.peopleId").hasJsonPath())
-                .andExpect(jsonPath("$.email").isNotEmpty());
+                .andExpect(jsonPath("$.email").isNotEmpty())
+                .andExpect(jsonPath("$.contracts").isArray())
+                .andExpect(jsonPath("$.contracts").isNotEmpty());
     }
 
     @Test
@@ -132,7 +158,7 @@ class ContragentApiTest extends BaseApiTest {
     void shouldBeStatus409WhenHasReferences() throws Exception {
         var before = contragentRepository.findById(UUID.fromString(CONTRAGENT_ID_EXISTS));
         assertThat(before.isPresent()).isTrue();
-        assertThat(before.get().getContracts()).isNotEmpty();
+        //assertThat(before.get().getContracts()).isNotEmpty();
 
         mvc.perform(delete("/api/contragents/" + CONTRAGENT_ID_EXISTS))
                 .andExpect(status().isConflict());

@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class BaseApiTest {
     public static final String CONTRAGENT_ID_EXISTS = "026bb306-139b-4b9c-b54a-65ec3def7e88";
+    public static final String CONTRAGENT_ID_EXISTS_EMAIL = "petrov@mail.ru";
     public static final String CONTRAGENT_ID_NON_EXISTS = "945ae326-6cd9-4cb2-bd43-e478fdbe60e1";
     public static final String CONTRAGENT_ID_WITHOUT_REFERECNES = "f6281e7f-c6ca-4f9c-9772-6effb020b408";
 

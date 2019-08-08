@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import ru.ptvi.otuscourse.clientroomdto.AccountingObjectDto;
 import ru.ptvi.otuscourse.clientroomdto.ContractWithDetailsDto;
 import ru.ptvi.otuscourse.clientroomdto.ContragentWithDetailsDto;
+import ru.ptvi.otuscourse.clientroomdto.DemandDto;
 
 import java.util.stream.Collectors;
 
@@ -78,5 +79,24 @@ public class PrintDtoServiceImpl implements PrintDtoService {
                 .append("\n  Service: ").append(accObject.service().name())
                 .append(accObject.description() == null ? "" : "\n  " + accObject.description())
                 .append("\n");
+    }
+
+    @Override
+    public String print(DemandDto demand) {
+        var sb = new StringBuilder();
+        print(sb, demand);
+        return sb.toString();
+    }
+
+    @Override
+    public void print(StringBuilder stringBuilder, DemandDto demand) {
+        stringBuilder.append("\nDemand id: ").append(demand.id())
+                    .append(' ').append(demand.demandDateTime())
+                .append("\n  ").append(demand.demandSubject())
+                    .append(' ').append(demand.demandNote());
+        if (demand.contract() != null)
+            stringBuilder.append("\n  Contract: ").append(demand.contract());
+        if (demand.accObject() != null)
+            stringBuilder.append("\n  Accounting object: ").append(demand.accObject());
     }
 }

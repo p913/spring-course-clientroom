@@ -1,10 +1,7 @@
 package ru.ptvi.otuscourse.clientroomexamples.service;
 
 import feign.Contract;
-import ru.ptvi.otuscourse.clientroomdto.AccountingObjectDto;
-import ru.ptvi.otuscourse.clientroomdto.ContractDto;
-import ru.ptvi.otuscourse.clientroomdto.ContractWithDetailsDto;
-import ru.ptvi.otuscourse.clientroomdto.ContragentWithDetailsDto;
+import ru.ptvi.otuscourse.clientroomdto.*;
 
 public interface PrintDtoService {
     String print(ContragentWithDetailsDto contragentWithDetailsDto);
@@ -18,4 +15,9 @@ public interface PrintDtoService {
     String print(AccountingObjectDto accountingObjectDto);
 
     void print(StringBuilder stringBuilder, AccountingObjectDto accountingObjectDto);
+
+    String print(DemandDto demandDto);
+
+    void print(StringBuilder stringBuilder, DemandDto demandDto);
+
 }

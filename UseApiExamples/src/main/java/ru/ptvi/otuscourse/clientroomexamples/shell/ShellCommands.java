@@ -32,7 +32,7 @@ public class ShellCommands {
     public String searchContragentByEmailOrPhone(@ShellOption("Email or phone") String account) {
         return useApiService.getContragentsByEmailOrPhone(account)
                 .stream()
-                .map(c -> printDtoService.print(c))
+                .map(printDtoService::print)
                 .collect(Collectors.joining());
     }
 
@@ -52,6 +52,23 @@ public class ShellCommands {
                                    @ShellOption("Year of charge period ") int year,
                                    @ShellOption("Month of charge period ") int month) {
         useApiService.chargeAndNotify(id, year, month);
+        return "Done.";
+    }
+
+    @ShellMethod(value = "Show all opened demands", key = "demand-show-opened")
+    public String showOpenDemand(@ShellOption("Contragent Id") String id) {
+        return useApiService
+                .getContragentOpenedDemands(id)
+                .stream()
+                .map(printDtoService::print)
+                .collect(Collectors.joining());
+    }
+
+    @ShellMethod(value = "Make decision for demand", key = "demand-close")
+    public String showOpenDemand(@ShellOption("Contragent Id") String contragentId,
+                                 @ShellOption("Demand Id") String demandId,
+                                 @ShellOption("Success") boolean success) {
+        useApiService.closeDemand(contragentId, demandId, success, "И не благодарите");
         return "Done.";
     }
 

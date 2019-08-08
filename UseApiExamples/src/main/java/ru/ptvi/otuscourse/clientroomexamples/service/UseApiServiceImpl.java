@@ -7,12 +7,14 @@ import ru.ptvi.otuscourse.clientroomdto.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class UseApiServiceImpl implements UseApiService {
@@ -166,6 +168,34 @@ public class UseApiServiceImpl implements UseApiService {
             roomApiService.createNotification(authHeader, id, notificationDto);
         }
 
+    }
+
+    @Override
+    public List<DemandDto> getContragentOpenedDemands(String id) {
+        var dateFrom = LocalDate.now().minus(2, ChronoUnit.MONTHS).toString();
+        var dateTo = LocalDate.now().toString();
+        return roomApiService
+                .getContragentDemands(authHeader, id, dateFrom, dateTo)
+                .stream()
+                .filter(d -> d.decisionDateTime() == null)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void closeDemand(String contragentId, String demandId, boolean success, String message) {
+        var demand = roomApiService.getDemandById(authHeader, contragentId, demandId);
+
+        if (demand.isEmpty())
+            throw new RuntimeException("Demand not found: " + demandId);
+        if (demand.get().decisionDateTime() != null)
+            throw new RuntimeException("Demand already has decision: " + demandId);
+
+        demand.get()
+                .decisionDateTime(OffsetDateTime.now())
+                .decisionSuccess(success)
+                .decisionNote(message);
+
+        roomApiService.updateDemand(authHeader, contragentId, demandId, demand.get());
     }
 }
 

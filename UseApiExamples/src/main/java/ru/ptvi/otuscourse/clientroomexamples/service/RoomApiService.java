@@ -70,4 +70,21 @@ public interface RoomApiService {
                               @PathVariable String cgid,
                               @RequestBody NotificationDto notificationDto);
 
+    @GetMapping("/api/contragents/{cgid}/demands")
+    List<DemandDto> getContragentDemands(@RequestHeader("Authorization") String auth,
+                                         @PathVariable String cgid,
+                                         @RequestParam String dateFrom,
+                                         @RequestParam String dateTo);
+
+    @GetMapping("/api/contragents/{cgid}/demands/{did}")
+    Optional<DemandDto> getDemandById(@RequestHeader("Authorization") String auth,
+                                      @PathVariable String cgid,
+                                      @PathVariable String did);
+
+    @PutMapping("/api/contragents/{cgid}/demands/{did}")
+    List<DemandDto> updateDemand(@RequestHeader("Authorization") String auth,
+                                 @PathVariable String cgid,
+                                 @PathVariable String did,
+                                 @RequestBody DemandDto demandDto);
+
 }
