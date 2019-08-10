@@ -1,0 +1,20 @@
+room:
+  company: "Рога и копыта, ООО"
+  contacts: "8(800)200-11-22, info@roga.org"
+
+  security:
+    #под этой учеткой личный кабинет ходит на микросервис с API
+    api:
+      username: api
+      password: AP19rs#$
+    #под этой учеткой можно зайти на некоторые системные endpoints приложения личного кабинета, например, /actuator
+    master:
+      username: master
+      password: MS19tr*!
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

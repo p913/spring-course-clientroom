@@ -95,8 +95,8 @@ public class PrintDtoServiceImpl implements PrintDtoService {
                 .append("\n  ").append(demand.demandSubject())
                     .append(' ').append(demand.demandNote());
         if (demand.contract() != null)
-            stringBuilder.append("\n  Contract: ").append(demand.contract());
+            stringBuilder.append("\n  Contract: ").append(demand.contract().number());
         if (demand.accObject() != null)
-            stringBuilder.append("\n  Accounting object: ").append(demand.accObject());
+            stringBuilder.append("\n  Accounting object: ").append(demand.accObject().name());
     }
 }

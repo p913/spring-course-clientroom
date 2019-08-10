@@ -47,7 +47,7 @@ public class ShellCommands {
                 useApiService.createContragentAsPeople(email, phone, firstName, null, lastName, contract, address);
     }
 
-    @ShellMethod(value = "Create contragent as people with default accounting object and service", key = "contragent-charge")
+    @ShellMethod(value = "Build/rebuild charges for contragent", key = "contragent-charge")
     public String chargeContragent(@ShellOption("Contragent Id") String id,
                                    @ShellOption("Year of charge period ") int year,
                                    @ShellOption("Month of charge period ") int month) {
