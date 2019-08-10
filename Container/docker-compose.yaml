@@ -1,0 +1,72 @@
+version: "3"
+services:
+  config-server:
+    build:
+      context: .
+      args:
+        jarname: config-server
+    volumes:
+      - /home/peter/docker2/config:/root/config
+    command: ["java", "-jar", "config-server.jar", "--spring.cloud.config.server.native.searchLocations=file:/root/config"]
+    expose:
+      - 8888
+  discovery-server:
+    build:
+      context: .
+      args:
+        jarname: discovery-server
+    expose:
+      - 8761
+    depends_on:
+      - config-server
+    command: ["./wait-for-it.sh", "config-server:8888", "-t", "60", "-s", "--", "java", "-jar", "discovery-server.jar", "--spring.cloud.config.uri=http://config-server:8888/"]
+  use-api-examples:
+    build:
+      context: .
+      args:
+        jarname: use-api-examples
+    depends_on:
+      - config-server
+      - discovery-server
+    stdin_open: true 
+    command: ["./wait-for-it.sh", "discovery-server:8761", "-t", "60", "-s", "--", "java", "-jar", "use-api-examples.jar", "--spring.cloud.config.uri=http://config-server:8888/"]
+  client-room-api:
+    build:
+      context: .
+      args:
+        jarname: client-room-api
+    depends_on:
+      - config-server
+      - discovery-server
+      - db
+    expose:
+      - "8080" 
+    command: ["./wait-for-it.sh", "discovery-server:8761", "-t", "60", "-s", "--", "java", "-jar", "client-room-api.jar", "--spring.cloud.config.uri=http://config-server:8888/"]
+  client-room:
+    build:
+      context: .
+      args:
+        jarname: client-room
+    depends_on:
+      - config-server
+      - discovery-server
+      - client-room-api
+    ports:
+      - "8000:8000" 
+    command: ["./wait-for-it.sh", "discovery-server:8761", "-t", "60", "-s", "--", "java", "-jar", "client-room.jar", "--spring.cloud.config.uri=http://config-server:8888/"]
+  sms-service:
+    build:
+      context: .
+      args:
+        jarname: sms-emulator
+    depends_on:
+      - config-server
+    expose:
+      - "8080" 
+    command: ["./wait-for-it.sh", "discovery-server:8761", "-t", "60", "-s", "--", "java", "-jar", "sms-emulator.jar", "--spring.cloud.config.uri=http://config-server:8888/"]
+  db:
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: trustnoone
+

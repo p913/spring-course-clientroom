@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет клиента</title>
+    <script src="webjars/vue/2.5.16/vue.js"></script>
+    <script src="webjars/jquery/1.12.0/jquery.min.js"></script>
+    <script src="webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="vuecomponents.js"></script>
+    <script src="clientroom.js"></script>
+    <link rel="stylesheet" href="webjars/jquery-ui-themes/1.12.1/overcast/jquery-ui.css">
+    <link rel="stylesheet" href="clientroom.css"/>
+</head>
+<body>
+<div class="ui-widget ui-corner-all central">
+    <main id="room">
+        <p class="room__company">{{ company }}</p>
+        <p class="room__contacts">{{ contacts }}</p>
+        <p class="room__logout"><a href="/logout">Выйти</a></p>
+
+        <nav class="room__nav-buttons">
+          <button v-for="pg in pages" v-bind:key="pg.title" class="ui-button ui-corner-all"
+                    v-on:click="page = pg">
+            {{ pg.title }} <span v-if="pg.isNotification && newNotificationCount > 0" class="ui-state-error ui-corner-all">
+            &nbsp;{{ newNotificationCount }}&nbsp;</span>
+          </button>
+        </nav>
+
+        <component class="room__dynamic-page" :is="page.component"></component>
+    </main>
+</div>
+</body>
+</html>

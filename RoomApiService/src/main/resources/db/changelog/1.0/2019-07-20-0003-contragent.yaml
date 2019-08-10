@@ -1,0 +1,87 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0003-table-contragent
+    author: peter
+    changes:
+    - createTable:
+        tableName: contragent
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: people_id
+            type: uuid
+            constraints:
+                nullable: true
+                foreignKeyName: fk_contragent_people_id
+                references: people(id)
+        - column:
+            name: firm_id
+            type: uuid
+            constraints:
+                nullable: true
+                foreignKeyName: fk_contragent_firm_id
+                references: firm(id)
+        - column:
+            name: email
+            type: varchar(100)
+            constraints:
+                nullable: false
+        - column:
+            name: phone
+            type: varchar(25)
+            constraints:
+                nullable: true
+        - column:
+            name: address
+            type: varchar(255)
+            constraints:
+                nullable: true
+        - column:
+            name: password
+            type: varchar(255)
+            constraints:
+                nullable: true
+- changeSet:
+    id: 2019-07-20-0003-indexes-contragent
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_contragent_email
+        tableName: contragent
+        schemaName: public
+        unique: true
+        columns:
+          - column:
+              name: email
+    - createIndex:
+        indexName: idx_contragent_people
+        tableName: contragent
+        schemaName: public
+        columns:
+          - column:
+              name: people_id
+    - createIndex:
+        indexName: idx_contragent_firm
+        tableName: contragent
+        schemaName: public
+        columns:
+          - column:
+              name: firm_id
+- changeSet:
+    id: 2019-07-20-0003-indexes-contragent-2
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_contragent_phone
+        tableName: contragent
+        schemaName: public
+        unique: true
+        columns:
+          - column:
+              name: phone

@@ -1,0 +1,51 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0002-table-people
+    author: peter
+    changes:
+    - createTable:
+        tableName: people
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: first_name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: middle_name
+            type: varchar(255)
+            constraints:
+                nullable: true
+        - column:
+            name: last_name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: birthday
+            type: date
+            constraints:
+                nullable: true
+        - column:
+            name: passport
+            type: varchar(255)
+            constraints:
+                nullable: true
+- changeSet:
+    id: 2019-07-20-0002-indexes-people
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_people_last_name
+        tableName: people
+        schemaName: public
+        columns:
+          - column:
+              name: last_name

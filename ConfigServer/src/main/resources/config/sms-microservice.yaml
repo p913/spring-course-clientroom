@@ -1,0 +1,14 @@
+sms-emulator:
+  telegram:
+    token: "582044049:************-k6r4NYDFVZJXIoY3kv2H9g"
+    chat-id: "217323896"
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8081

@@ -1,0 +1,65 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0011-table-pay
+    author: peter
+    changes:
+    - createTable:
+        tableName: pay
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: contract_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_pay_contract_id
+                references: contract(id)
+        - column:
+            name: pay_date_time
+            type: timestamptz
+            constraints:
+                nullable: false
+        - column:
+            name: summ
+            type: money
+            constraints:
+                nullable: false
+        - column:
+            name: source
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+              name: transaction_number
+              type: varchar(255)
+              constraints:
+                  nullable: true
+        - column:
+            name: document_number
+            type: varchar(255)
+            constraints:
+                nullable: true
+- changeSet:
+    id: 2019-07-20-0011-indexes-pay
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_pay_contract_id
+        tableName: pay
+        schemaName: public
+        columns:
+        - column:
+            name: contract_id
+    - createIndex:
+        indexName: idx_pay_date
+        tableName: pay
+        schemaName: public
+        columns:
+        - column:
+            name: pay_date_time

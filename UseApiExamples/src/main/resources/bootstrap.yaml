@@ -1,0 +1,4 @@
+spring:
+  application:
+    # TODO разобраться надо ли ему регистрироваться на еврике и как это отменить
+    name: room-use-api-examples

@@ -1,0 +1,63 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0004-table-contract
+    author: peter
+    changes:
+    - createTable:
+        tableName: contract
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: contragent_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_contract_contragent_id
+                references: contragent(id)
+        - column:
+            name: number
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: date_from
+            type: date
+            constraints:
+                nullable: false
+        - column:
+            name: date_to
+            type: date
+            constraints:
+                nullable: true
+        - column:
+            name: balance
+            type: money
+            constraints:
+                nullable: false
+- changeSet:
+    id: 2019-07-20-0004-indexes-contract
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_contract_number
+        tableName: contract
+        schemaName: public
+        unique: true
+        columns:
+          - column:
+              name: number
+          - column:
+                name: contragent_id
+    - createIndex:
+        indexName: idx_contract_contragent_id
+        tableName: contract
+        schemaName: public
+        columns:
+          - column:
+              name: contragent_id

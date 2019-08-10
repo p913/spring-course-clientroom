@@ -1,0 +1,77 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0007-table-charge_service
+    author: peter
+    changes:
+    - createTable:
+        tableName: charge_service
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: service_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_chg_service_service_id
+                references: service(id)
+        - column:
+            name: acc_object_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_chg_service_acc_object_id
+                references: accounting_object(id)
+        - column:
+            name: date_from
+            type: date
+            constraints:
+                nullable: false
+        - column:
+            name: date_to
+            type: date
+            constraints:
+                nullable: false
+        - column:
+            name: metric
+            type: varchar(25)
+            constraints:
+                nullable: true
+        - column:
+            name: cost
+            type: numeric(12,2)
+            constraints:
+                nullable: false
+        - column:
+            name: quantity
+            type: numeric(12,3)
+            constraints:
+                nullable: false
+        - column:
+            name: summ
+            type: numeric(12,2)
+            constraints:
+                nullable: false
+- changeSet:
+    id: 2019-07-20-0007-indexes-charge_service
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_chg_service_acc_object_id
+        tableName: charge_service
+        schemaName: public
+        columns:
+        - column:
+            name: acc_object_id
+    - createIndex:
+        indexName: idx_chg_service_service_id
+        tableName: charge_service
+        schemaName: public
+        columns:
+        - column:
+            name: service_id

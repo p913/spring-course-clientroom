@@ -1,0 +1,58 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0001-table-firm
+    author: peter
+    changes:
+    - createTable:
+        tableName: firm
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: name
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: inn
+            type: char(12)
+            constraints:
+                nullable: true
+        - column:
+            name: kpp
+            type: char(9)
+            constraints:
+                nullable: true
+        - column:
+            name: bank
+            type: varchar(255)
+            constraints:
+                nullable: true
+        - column:
+            name: account
+            type: char(20)
+            constraints:
+                nullable: true
+- changeSet:
+    id: 2019-07-20-0001-indexes-firm
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_firm_name
+        tableName: firm
+        schemaName: public
+        columns:
+          - column:
+              name: name
+    - createIndex:
+        indexName: idx_firm_inn
+        tableName: firm
+        schemaName: public
+        columns:
+          - column:
+              name: inn

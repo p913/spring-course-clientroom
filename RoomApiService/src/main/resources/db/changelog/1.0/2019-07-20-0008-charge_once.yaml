@@ -1,0 +1,68 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0008-table-charge_once
+    author: peter
+    changes:
+    - createTable:
+        tableName: charge_once
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: contract_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_chg_once_contract_id
+                references: contract(id)
+        - column:
+            name: date_from
+            type: date
+            constraints:
+                nullable: false
+        - column:
+            name: date_to
+            type: date
+            constraints:
+                nullable: false
+        - column:
+            name: description
+            type: varchar(255)
+            constraints:
+                nullable: false
+        - column:
+            name: metric
+            type: varchar(25)
+            constraints:
+                nullable: true
+        - column:
+            name: cost
+            type: numeric(12,2)
+            constraints:
+                nullable: false
+        - column:
+            name: quantity
+            type: numeric(12,3)
+            constraints:
+                nullable: false
+        - column:
+            name: summ
+            type: numeric(12,2)
+            constraints:
+                nullable: false
+- changeSet:
+    id: 2019-07-20-0008-indexes-charge_once
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_ch_once_contract_id
+        tableName: charge_once
+        schemaName: public
+        columns:
+        - column:
+            name: contract_id

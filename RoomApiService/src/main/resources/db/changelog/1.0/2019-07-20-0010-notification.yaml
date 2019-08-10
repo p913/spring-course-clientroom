@@ -1,0 +1,58 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-07-20-0010-table-notification
+    author: peter
+    changes:
+    - createTable:
+        tableName: notification
+        schemaName: public
+        columns:
+        - column:
+            name: id
+            type: uuid
+            constraints:
+                nullable: false
+                primaryKey: true
+        - column:
+            name: contragent_id
+            type: uuid
+            constraints:
+                nullable: false
+                foreignKeyName: fk_notif_contragent_id
+                references: contragent(id)
+        - column:
+            name: origin_date_time
+            type: timestamptz
+            constraints:
+                nullable: false
+        - column:
+            name: message
+            type: text
+            constraints:
+                nullable: false
+        - column:
+            name: send_email
+            type: boolean
+            constraints:
+                nullable: false
+        - column:
+            name: send_sms
+            type: boolean
+            constraints:
+                nullable: false
+        - column:
+              name: viewed
+              type: boolean
+              constraints:
+                  nullable: false
+- changeSet:
+    id: 2019-07-20-0010-indexes-notification
+    author: peter
+    changes:
+    - createIndex:
+        indexName: idx_notif_contragent_id
+        tableName: notification
+        schemaName: public
+        columns:
+        - column:
+            name: contragent_id

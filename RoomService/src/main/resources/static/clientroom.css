@@ -1,0 +1,256 @@
+body {
+}
+
+.central {
+  width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1em;
+  border: 1px solid #aaaaaa;
+  background: #f9f9f9;
+}
+
+.room__nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.room__dynamic-page {
+  margin-top: 20px;
+}
+
+.page-contragent {
+}
+
+.page-charges__service-data, .page-charges__once-data {
+    margin-top: 20px;
+}
+
+.page-pays__button-pay,
+.page-pays__pays-data {
+    margin-top: 20px;
+}
+
+.page-docs__docs-data {
+    margin-top: 20px;
+}
+
+.page-nots__nots-data {
+    margin-top: 20px;
+}
+
+.page-demands__demands-data {
+    margin-top: 20px;
+}
+
+.c-date-diap-selector {
+  display: flex;
+  align-items: baseline;
+}
+
+.c-date-diap-selector__input-date-from,
+.c-date-diap-selector__input-date-to {
+  margin: 0px 10px;
+  border: 1px solid #aaaaaa;
+  text-align: center;
+}
+
+.demand-push-form {
+  display: table;
+}
+
+.demand-push-form__contract,
+.demand-push-form__acc-object,
+.demand-push-form__subject,
+.demand-push-form__note,
+.demand-push-form__button-send {
+  display: table-row;
+}
+
+.demand-push-form__label-contract,
+.demand-push-form__input-contract,
+.demand-push-form__label-acc-object,
+.demand-push-form__input-acc-object,
+.demand-push-form__label-subject,
+.demand-push-form__input-subject,
+.demand-push-form__label-note,
+.demand-push-form__input-note {
+  display: table-cell;
+  margin: 5px;
+  vertical-align: top;
+}
+
+.demand-push-form__input-contract,
+.demand-push-form__input-acc-object,
+.demand-push-form__input-subject,
+.demand-push-form__input-note {
+  width: 600px;
+}
+
+.page-demands__demonds-data,
+.page-demands__send-button,
+.page-demands__error,
+.page-demands__send-form {
+    margin-top: 20px;
+}
+
+.page-demands__error {
+  padding: 0px 15px;
+}
+
+.table-simple-data {
+  border: 1px solid #aaaaaa;
+  width: 100%;
+  background: #ffffff;
+  border-spacing: 4px;
+  border-radius: 6px;
+}
+
+.table-simple-data th {
+  padding: 10px 1px;
+  background: #f9f9f9;
+  padding: 0px 5px;
+  font-weight: normal;
+}
+
+.table-simple-data td {
+  background: #f9f9f9;
+  color: #666666;
+  padding: 0px 5px;
+}
+
+.table-simple-data>tr:hover td {
+  background: #ffffff;
+}
+
+.c-notification-list__notification {
+  margin: 5px 0px;
+  padding: 0px 20px;
+  background: #eeeeee;
+  border: 1px solid #aaaaaa;
+}
+
+.c-notification-list__notification--new {
+  background: #ffc0c0;
+  border: 1px solid #ff4343;
+}
+
+.c-notification-list__footer-date {
+  font-size: 0.7em;
+  text-align: right;
+}
+
+.c-contragent-info,
+.c-contragent-contract,
+.c-contragent-contract-acc-object {
+    color: lightslategray;
+}
+
+.c-contragent-info__accent,
+.c-contragent-contract__accent,
+.c-contragent-contract-acc-object__accent {
+    color: black;
+}
+
+.c-contragent-contract {
+  padding-top: 20px;
+}
+
+.c-contragent-contract__balance {
+  color: green;
+}
+
+.c-contragent-contract__balance--negative {
+  color: red;
+}
+
+.c-contragent-contract-acc-object {
+  padding-left: 30px;
+}
+
+.c-contragent-contract-acc-object__description,
+.c-contragent-contract-acc-object__dates,
+.c-contragent-contract-acc-object__service {
+  padding-left: 30px;
+}
+
+.room__company {
+  text-align: right;
+  margin-top: 0px;
+}
+
+.room__contacts,
+.room__logout {
+  text-align: right;
+  font-size: 0.7em;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+}
+
+.form-login__psw,
+.form-login__button,
+.form-login__remember-me {
+  margin-top: 20px;
+}
+
+.login__header {
+  text-align: center;
+}
+
+.central--fixed-height {
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login__form {
+  margin-top: 70px;
+}
+
+.form-login__error {
+  color: #ee0000;
+}
+
+.form-login__error--hidden {
+  display: none;
+}
+
+.register__form {
+  margin-top: 70px;
+}
+
+.form-register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+}
+
+.form-register__contract-number,
+.form-register__contract-date,
+.form-register__psw,
+.form-register__button,
+.form-register__remember-me {
+  margin-top: 20px;
+}
+
+.register__header {
+  text-align: center;
+}
+
+.register__greeting {
+  margin: 20px 100px 0px 100px;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+.form-register__error {
+  color: #ee0000;
+}
